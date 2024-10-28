@@ -1,6 +1,6 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthError, CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { getUser, signUp, verifyUser } from "./actions/auth";
+import { getUserByEmail, signUp, verifyUser } from "./actions/user";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [
@@ -13,18 +13,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 name: {},
             },
             authorize: async (credentials) => {
+                console.log("authorize");
                 const isUserExist = await verifyUser(
-                    credentials.email,
-                    credentials.password
+                    credentials.email as string,
+                    credentials.password as string
                 );
 
-                const user = await getUser(credentials.email);
+                if (!isUserExist.success) {
+                    throw new CredentialsSignin(isUserExist.message);
+                }
+
+                const data = await getUserByEmail(credentials.email as string);
+                // console.log("data", data);
+                // throw new Error("tes error");
                 // return user object with their profile data
-                return user;
+                return data.data;
             },
         }),
     ],
     callbacks: {
+        // async signIn(params) {
+        //     console.log("params", params);
+
+        //     throw new AuthError("tes error");
+        //     return false;
+        // },
         async redirect({ url, baseUrl }) {
             return baseUrl + "/protected";
         },

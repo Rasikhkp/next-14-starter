@@ -8,17 +8,21 @@ import {
 import Link from "next/link";
 import { User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { auth, signOut } from "@/auth";
+import { signOut } from "@/auth";
+import { getLoggedInUser } from "@/actions/user";
 
 const Navbar = async () => {
-    const loggedInUser = await auth();
+    const { data: loggedInUser } = await getLoggedInUser();
     return (
         <div className="py-3 w-full px-10 flex justify-end">
             {loggedInUser ? (
                 <Popover>
                     <PopoverTrigger>
                         <Avatar>
-                            <AvatarImage src="https://github.com/shadcn.png" />
+                            <AvatarImage
+                                src={loggedInUser.profilePicture}
+                                className="object-cover"
+                            />
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
                     </PopoverTrigger>

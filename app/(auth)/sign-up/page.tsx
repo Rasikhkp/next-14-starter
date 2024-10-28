@@ -1,8 +1,9 @@
-import { signUp } from "@/actions/auth";
+import { signUp } from "@/actions/user";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
+import SignUpForm from "./_components/sign-up-form";
 
 const page = () => {
     return (
@@ -26,80 +27,7 @@ const page = () => {
                         <h1 className="text-xl font-semibold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Sign up
                         </h1>
-                        <form
-                            className="space-y-4 md:space-y-6"
-                            action={async (formData) => {
-                                "use server";
-                                const name = formData.get("name");
-                                const email = formData.get("email");
-                                const password = formData.get("password");
-
-                                await signUp(email, password, name);
-
-                                redirect("/sign-in");
-                            }}
-                        >
-                            <div>
-                                <label
-                                    htmlFor="name"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Name
-                                </label>
-                                <input
-                                    type="name"
-                                    name="name"
-                                    id="name"
-                                    className="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-gray-600 focus:border-gray-600 block w-full px-4 py-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Robert Downey Jr."
-                                />
-                            </div>
-                            <div>
-                                <label
-                                    htmlFor="email"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Your email
-                                </label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    id="email"
-                                    className="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-gray-600 focus:border-gray-600 block w-full px-4 py-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="name@company.com"
-                                />
-                            </div>
-                            <div>
-                                <label
-                                    htmlFor="password"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Password
-                                </label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    id="password"
-                                    placeholder="••••••••"
-                                    className="bg-gray-50 border text-sm border-gray-300 text-gray-900 rounded-lg focus:ring-gray-600 focus:border-gray-600 block w-full px-4 py-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                className="w-full text-white bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-3 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-                            >
-                                Sign Up
-                            </button>
-                            <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                Already have an account?{" "}
-                                <Link
-                                    href="/sign-in"
-                                    className="font-medium text-gray-600 hover:underline dark:text-gray-500"
-                                >
-                                    Sign in
-                                </Link>
-                            </p>
-                        </form>
+                        <SignUpForm />
                     </div>
                 </div>
             </div>
