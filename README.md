@@ -40,7 +40,13 @@ cp .env.example .env.local
 npm run db-push
 ```
 
-6. Start the development server:
+6. Generate secret key for auth:
+
+```bash
+npx auth secret
+```
+
+7. Start the development server:
 
 ```bash
 npm run dev
