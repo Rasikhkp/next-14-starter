@@ -16,7 +16,7 @@ A batteries-included, type-safe Next.js 14 starter template with all the modern 
 1. Clone the repository:
 
 ```bash
-https://github.com/Rasikhkp/next-14-starter.git
+git clone https://github.com/Rasikhkp/next-14-starter.git
 cd next-14-starter
 ```
 
